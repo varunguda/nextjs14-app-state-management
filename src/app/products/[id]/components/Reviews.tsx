@@ -2,14 +2,14 @@
 import { useState } from "react";
 
 import { Review } from "@/api/types";
+import { useReviews } from "../ReviewContext";
 
 export default function Reviews({
-  reviews,
   addReviewAction,
 }: {
-  reviews: Review[];
   addReviewAction: (text: string, rating: number) => Promise<Review[]>;
 }) {
+  const [reviews, setReviews] = useReviews();
   const [reviewText, setReviewText] = useState("");
   const [reviewRating, setReviewRating] = useState(5);
 
@@ -28,7 +28,7 @@ export default function Reviews({
       <form
         onSubmit={async (evt) => {
           evt.preventDefault();
-          await addReviewAction(reviewText, reviewRating);
+          setReviews(await addReviewAction(reviewText, reviewRating));
           setReviewText("");
           setReviewRating(5);
         }}
@@ -56,7 +56,12 @@ export default function Reviews({
           <button
             disabled={!reviewText}
             className="mt-6 px-8 py-2 text-lg font-bold text-white bg-blue-800 rounded-lg disabled:bg-gray-500 disabled:cursor-not-allowed"
-            onClick={async () => {}}
+            // onClick={async () => {
+            //   setReviews((prev) => [
+            //     ...prev,
+            //     { rating: reviewRating, text: reviewText },
+            //   ]);
+            // }}
           >
             Submit Review
           </button>

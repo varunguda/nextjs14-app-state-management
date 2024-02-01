@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import Header from "./components/Header";
 
 import { getCart, clearCart } from "@/api/cart";
+import { CartProvider } from "./components/CartContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,8 +31,10 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Header cart={cart} clearCartAction={clearCartAction} />
-        <main className="mx-auto max-w-3xl">{children}</main>
+        <CartProvider cart={cart}>
+          <Header clearCartAction={clearCartAction} />
+          <main className="mx-auto max-w-3xl">{children} </main>
+        </CartProvider>
       </body>
     </html>
   );
