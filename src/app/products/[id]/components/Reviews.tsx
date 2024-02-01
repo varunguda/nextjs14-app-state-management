@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 
-import { Review } from "@/api/types";
+import { type Review } from "@/api/types";
 import { useReviews } from "../ReviewContext";
 
 export default function Reviews({

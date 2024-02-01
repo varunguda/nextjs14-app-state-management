@@ -1,6 +1,6 @@
 "use client";
 
-import { Review } from "@/api/types";
+import { type Review } from "@/api/types";
 import React, { createContext, useContext, useState } from "react";
 
 const useReviewState = (initialReviews: Review[]) =>
@@ -13,7 +13,7 @@ export const ReviewContext = createContext<ReturnType<
 export const useReviews = () => {
   const reviews = useContext(ReviewContext);
   if (!reviews) {
-    throw new Error("useCart must be within a ReviewProvider");
+    throw new Error("useReviews must be within a ReviewProvider");
   }
   return reviews;
 };
