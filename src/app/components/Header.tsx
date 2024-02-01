@@ -4,14 +4,14 @@ import Link from "next/link";
 
 import CartPopup from "./CartPopup";
 import { type Cart } from "@/api/types";
-import { useCart } from "./CartContext";
 
 export default function Header({
+  cart,
   clearCartAction,
 }: {
+  cart: Cart;
   clearCartAction: () => Promise<Cart>;
 }) {
-  const [cart] = useCart();
   const [showCart, setShowCart] = useState(false);
 
   return (
@@ -30,7 +30,9 @@ export default function Header({
         <span className="text-xl font-bold leading-10 text-gray-100">
           {cart.products.length}
         </span>
-        {showCart && <CartPopup clearCartAction={clearCartAction} />}
+        {showCart && (
+          <CartPopup cart={cart} clearCartAction={clearCartAction} />
+        )}
       </div>
     </header>
   );
