@@ -13,7 +13,7 @@ export const ReviewContext = createContext<ReturnType<
 export const useReviews = () => {
   const reviews = useContext(ReviewContext);
   if (!reviews) {
-    throw new Error("useCart must be within a ReviewProvider");
+    throw new Error("useReviews must be within a ReviewProvider");
   }
   return reviews;
 };
