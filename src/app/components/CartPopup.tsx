@@ -1,14 +1,17 @@
 "use client";
 
 import { type Cart } from "@/api/types";
+import { setCart, useCart } from "../store/store";
+import { useDispatch } from "react-redux";
 
 export default function CartPopup({
-  cart,
   clearCartAction,
 }: {
-  cart: Cart;
   clearCartAction: () => Promise<Cart>;
 }) {
+  const cart = useCart();
+  const dispatch = useDispatch();
+
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="flex flex-col items-center justify-center w-1/2 p-4 bg-white rounded-lg">
@@ -41,7 +44,9 @@ export default function CartPopup({
         <div className="flex justify-between w-full">
           <button
             className="mt-6 px-4 py-2 text-lg font-bold text-white bg-green-800 rounded-lg"
-            onClick={async () => {}}
+            onClick={async () => {
+              dispatch(setCart(await clearCartAction()));
+            }}
           >
             Clear Cart
           </button>

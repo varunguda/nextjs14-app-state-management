@@ -1,8 +1,27 @@
 "use client";
 
 import { Review } from "@/api/types";
+import { useReviews } from "@/app/store/store";
+import { useEffect, useState } from "react";
 
-export default function AverageRating({ reviews }: { reviews: Review[] }) {
+export default function AverageRating({
+  reviews: initialReviews,
+}: {
+  reviews: Review[];
+}) {
+  const [reviews, setReviews] = useState<Review[] | null>(initialReviews);
+  const stateReviews = useReviews();
+
+  useEffect(() => {
+    if (
+      stateReviews !== null &&
+      JSON.stringify(initialReviews) !== JSON.stringify(stateReviews)
+    ) {
+      setReviews(stateReviews);
+    }
+    // eslint-disable-next-line
+  }, [stateReviews]);
+
   return (
     <>
       {reviews && reviews?.length && (
